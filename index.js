@@ -6,86 +6,104 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 
+//team employees add to array
+const team = [];
+
 // array of questions for user input
 const managerQuestions = [
     {
         type: 'input',
         name: 'managerName',
-        message: "What is your name?",
+        message: "What is the Manager's name?",
     },
-
     {
         type: 'input',
         name: 'managerId',
-        message: "What is your ID?",
+        message: "What is the Manager's ID?",
     },
-
     {
         type: 'input',
         name: 'managerEmail',
-        message: "What is your email?",
+        message: "What is the Manager's email?",
+    },
+    {
+        type: 'input',
+        name: 'managerOffice',
+        message: "What is the Manager's office number?",
     },
 ];
 
-const engineerQuestions = [
+const employeeQuestions = [
     {
-        type: 'input',
-        name: 'engineerName',
-        message: "What is the Engineer's name?",
+        type: 'list',
+        name: 'teamAdd',
+        message: 'Would you like to add a team member?',
+        choices: ['Engineer', 'Intern', 'No'],
     },
     {
         type: 'input',
-        name: 'engineerId',
-        message: "What is the Engineer's ID?",
+        name: 'employeeName',
+        message: "What is the employee's name?",
     },
     {
         type: 'input',
-        name: 'engineerEmail',
-        message: "What is the Engineer's email?",
-    },
-];
-
-const internQuestions = [
-    {
-        type: 'input',
-        name: 'internName',
-        message: "What is the Intern's name?",
+        name: 'employeeId',
+        message: "What is the employee's ID?",
     },
     {
         type: 'input',
-        name: 'internId',
-        message: "What is the Intern's ID?",
+        name: 'employeeEmail',
+        message: "What is the employee's email?",
+    },
+    {
+        type: 'input',
+        name: 'engineerGithub',
+        message: "What is the Engineer's GitHub username?",
+        when: (response) => response.teamAdd === "Engineer",
     },
     {
         type: 'input',
         name: 'internEmail',
-        message: "What is the Intern's email?",
+        message: "What is the Intern's school name?",
+        when: (response) => response.teamAdd === "Intern",
     },
-]
+];
 
-const teamAddQuestion = [
-    {
-        type: 'list',
-        name: 'teamAdd',
-        message: 'Would you like to add another team member?',
-        choices: ['Engineer', 'Intern', 'Finish and generate team overview'],
-    },
-]
 
-//function to write README file
-// function writeHtml(fileName, data) {
-//     fs.writeFile('', , (err) =>
-//       err ? console.log(err) : console.log('Success!')
-// )}
-
-//function to initialize app
-function init() {
+//function to run through manager questions
+const askManagerQ = () => {
     inquirer
-        .prompt(teamAddQuestion)
-        .then((response) =>
-            console.log(response)
-        );
-}
+        .prompt(managerQuestions)
+        .then(managerResponse => {
+            console.log(managerResponse);
+            const {name, id, email, officeNumber} = managerResponse;
+            const manager = new Manager (name, id, email, officeNumber);
 
-//function call to initialize app
-init();
+            team.push(manager)
+            console.log(team);
+        })
+};
+
+
+//function to run through employee questions
+const askEmployeeQ = () => {
+    inquirer
+        .prompt(employeeQuestions)
+        .then(employeeResponse => {
+            if(teamAdd === 'Engineer') {
+                console.log(employeeResponse);
+            } else if (teamAdd === 'Intern') {
+                console.log(employeeResponse);
+            }
+        })
+};
+
+askManagerQ()
+
+// //function to initialize app
+// function init() {
+//     askManagerQ()
+// }
+
+// //function call to initialize app
+// init();
