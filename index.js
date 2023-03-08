@@ -76,11 +76,12 @@ const askManagerQ = () => {
         .prompt(managerQuestions)
         .then(managerResponse => {
             console.log(managerResponse);
-            const {name, id, email, officeNumber} = managerResponse;
+            const {managerName:name, managerId:id, managerEmail:email, managerOffice:officeNumber} = managerResponse;
             const manager = new Manager (name, id, email, officeNumber);
 
             team.push(manager)
-            console.log(team);
+            console.log(manager);
+            askEmployeeQ()
         })
 };
 
@@ -90,20 +91,22 @@ const askEmployeeQ = () => {
     inquirer
         .prompt(employeeQuestions)
         .then(employeeResponse => {
-            if(teamAdd === 'Engineer') {
+            if(employeeResponse.teamAdd === 'Engineer') {
                 console.log(employeeResponse);
-            } else if (teamAdd === 'Intern') {
+            } else if (employeeResponse.teamAdd === 'Intern') {
                 console.log(employeeResponse);
+            } else {
+                return //write file
             }
         })
 };
 
-askManagerQ()
+// askManagerQ()
 
-// //function to initialize app
-// function init() {
-//     askManagerQ()
-// }
+//function to initialize app
+function init() {
+    askManagerQ()
+}
 
-// //function call to initialize app
-// init();
+//function call to initialize app
+init();
