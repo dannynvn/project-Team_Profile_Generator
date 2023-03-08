@@ -1,6 +1,7 @@
 //packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generateTeam = require('./src/generateTeam');
 const Employee = require('./lib/Employee');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
@@ -35,15 +36,9 @@ const managerQuestions = [
 
 const employeeQuestions = [
     {
-        type: 'list',
-        name: 'teamAdd',
-        message: 'Would you like to add a team member?',
-        choices: ['Engineer', 'Intern', 'No'],
-    },
-    {
         type: 'input',
         name: 'employeeName',
-        message: "What is the employee's name?",
+        message: "Adding employee: What is the employee's name?",
     },
     {
         type: 'input',
@@ -56,18 +51,33 @@ const employeeQuestions = [
         message: "What is the employee's email?",
     },
     {
-        type: 'input',
-        name: 'engineerGithub',
-        message: "What is the Engineer's GitHub username?",
-        when: (response) => response.teamAdd === "Engineer",
+        type: 'list',
+        name: 'empType',
+        message: 'Is the employee an Engineer or an Intern?',
+        choices: ['Engineer', 'Intern'],
     },
     {
         type: 'input',
-        name: 'internEmail',
+        name: 'engineerGithub',
+        message: "What is the Engineer's GitHub username?",
+        when: (response) => response.empType === "Engineer",
+    },
+    {
+        type: 'input',
+        name: 'internSchool',
         message: "What is the Intern's school name?",
-        when: (response) => response.teamAdd === "Intern",
+        when: (response) => response.empType === "Intern",
     },
 ];
+
+const addEmployeeQ = [
+    {
+        type: 'list',
+        name: 'teamAdd',
+        message: "Would you like to add another employee?",
+        choices: ['Yes','No']
+    }
+]
 
 
 //function to run through manager questions
@@ -75,11 +85,10 @@ const askManagerQ = () => {
     inquirer
         .prompt(managerQuestions)
         .then(managerResponse => {
-            console.log(managerResponse);
             const {managerName:name, managerId:id, managerEmail:email, managerOffice:officeNumber} = managerResponse;
             const manager = new Manager (name, id, email, officeNumber);
 
-            team.push(manager)
+            team.push(manager);
             console.log(manager);
             askEmployeeQ()
         })
@@ -91,21 +100,48 @@ const askEmployeeQ = () => {
     inquirer
         .prompt(employeeQuestions)
         .then(employeeResponse => {
-            if(employeeResponse.teamAdd === 'Engineer') {
-                console.log(employeeResponse);
-            } else if (employeeResponse.teamAdd === 'Intern') {
-                console.log(employeeResponse);
+            if(employeeResponse.empType === 'Engineer') {
+                const {employeeName:name, employeeId:id, employeeEmail:email, engineerGithub:github} = employeeResponse;
+                const engineer = new Engineer (name, id, email, github);
+
+                team.push(engineer);
+                console.log(engineer);
+                console.log(team);
+                additionalEmployee();
+            } else if (employeeResponse.empType === 'Intern') {
+                const {employeeName:name, employeeId:id, employeeEmail:email, internSchool:school} = employeeResponse;
+                const intern = new Intern (name, id, email, school);
+
+                team.push(intern);
+                console.log(intern);
+                console.log(team);
+                additionalEmployee();
             } else {
-                return //write file
+                console.log(team);
+                additionalEmployee();
             }
-        })
+        });
 };
 
-// askManagerQ()
+const additionalEmployee = () => {
+    inquirer
+        .prompt(addEmployeeQ)
+        .then(response => {
+            if(response.teamAdd === 'Yes') {
+                askEmployeeQ();
+            } else {
+                console.log('finished adding employees!');
+                return
+            }
+        }); 
+};
+
+//function to write to html
+
 
 //function to initialize app
 function init() {
-    askManagerQ()
+    askManagerQ();
 }
 
 //function call to initialize app
