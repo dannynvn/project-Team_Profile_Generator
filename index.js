@@ -123,6 +123,7 @@ const askEmployeeQ = () => {
         });
 };
 
+//question function prompting user if they want to add more employees after the first one
 const additionalEmployee = () => {
     inquirer
         .prompt(addEmployeeQ)

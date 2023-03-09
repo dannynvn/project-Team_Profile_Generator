@@ -1,41 +1,5 @@
 const fs = require('fs');
 
-//render manager card
-const renderManager = (employee) => {
-    return `
-            <div class="card text-center p-3 m-3 bg-dark text-light">
-                <h2>Manager</h2>
-                <p>ID: ${employee.name}</p>
-                <p>Email: <a href="mailto:${employee.email}">${employee.email}</a></p>
-                <p>Office Number: ${employee.officeNumber}</p>
-            </div>
-    `
-}
-
-//render engineer card
-const renderEngineer = (employee) => {
-    return `
-            <div class="card text-center p-3 m-3 bg-secondary text-light">
-                <h2>Engineer</h2>
-                <p>ID: ${employee.name}</p>
-                <p>Email: <a href="mailto:${employee.email}">${employee.email}</a></p>
-                <p>Github: <a href="https://github.com/${employee.github}">${employee.github}</a></p>
-            </div>
-    `
-}
-
-//render intern card
-const renderIntern = (employee) => {
-    return `
-            <div class="card text-center p-3 m-3">
-                <h2>Intern</h2>
-                <p>ID: ${employee.name}</p>
-                <p>Email: ${employee.email}</p>
-                <p>School: ${employee.school}</p>
-            </div>
-    `
-}
-
 //generate html and write to team.html
 function generateTeam(team) {
     const html = `
@@ -102,6 +66,40 @@ function completeHtml() {
     );
 }
 
+//render manager card
+const renderManager = (employee) => {
+    return `
+            <div class="card text-center p-3 m-3 bg-dark text-light">
+                <h2>Manager</h2>
+                <p>ID: ${employee.name}</p>
+                <p>Email: <a href="mailto:${employee.email}">${employee.email}</a></p>
+                <p>Office Number: ${employee.officeNumber}</p>
+            </div>
+    `
+}
 
+//render engineer card
+const renderEngineer = (employee) => {
+    return `
+            <div class="card text-center p-3 m-3 bg-secondary text-light">
+                <h2>Engineer</h2>
+                <p>ID: ${employee.name}</p>
+                <p>Email: <a href="mailto:${employee.email}">${employee.email}</a></p>
+                <p>Github: <a href="https://github.com/${employee.github}">${employee.github}</a></p>
+            </div>
+    `
+}
+
+//render intern card
+const renderIntern = (employee) => {
+    return `
+            <div class="card text-center p-3 m-3">
+                <h2>Intern</h2>
+                <p>ID: ${employee.name}</p>
+                <p>Email: ${employee.email}</p>
+                <p>School: ${employee.school}</p>
+            </div>
+    `
+}
 
 module.exports = generateTeam;

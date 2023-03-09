@@ -10,7 +10,7 @@ describe('getRole', () => {
 });
 
 describe('getOfficeNumber', () => {
-    it("should return employee ID number", () => {
+    it("should return manager's office number", () => {
 
         const employee = new Manager('Danny', 100, 'danny@testemail.com',2);
 
