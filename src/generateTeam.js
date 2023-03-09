@@ -1,22 +1,43 @@
 const fs = require('fs');
 
 //render manager card
-function renderManager() {
-
+const renderManager = (manager) => {
+    return `
+            <div class="card text-center p-3 m-3 bg-dark text-light">
+                <h2>Manager</h2>
+                <p>ID: ${manager.name}</p>
+                <p>Email: ${manager.email}</p>
+                <p>Office Number: ${manager.officeNumber}</p>
+            </div>
+    `
 }
 
 //render engineer card
-function renderEngineer() {
-    
+const renderEngineer = (engineer) => {
+    return `
+            <div class="card text-center p-3 m-3 bg-secondary text-light">
+                <h2>Engineer</h2>
+                <p>ID: ${engineer.name}</p>
+                <p>Email: ${engineer.email}</p>
+                <p>GitHub: ${engineer.github}</p>
+            </div>
+    `
 }
 
 //render intern card
-function renderIntern() {
-    
+const renderIntern = (intern) => {
+    return `
+            <div class="card text-center p-3 m-3">
+                <h2>Intern</h2>
+                <p>ID: ${intern.name}</p>
+                <p>Email: ${intern.email}</p>
+                <p>School: ${intern.school}</p>
+            </div>
+    `
 }
 
 //generate html and write to team.html
-function generateTeam(teamData) {
+function generateTeam(team) {
     const html = `
 <!DOCTYPE html>
 <html lang="en">
@@ -27,42 +48,58 @@ function generateTeam(teamData) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <title>Team Profile</title>
 </head>
-<body>
-<header class="bg-light fs-1 text-center m-5 p-4"> 
-    Team Profile
-</header>
-<div class="container justify-content-center text-start">
-
+    <body>
+        <header class="bg-light fs-1 text-center m-5 p-4"> 
+            Team Profile
+        </header>
+        <div class="container">
 `;
 
-    const htmlEnd = `
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-</body>
-</html>
-`;
+    
 
     fs.writeFile('./output/team.html', html, (err) => 
         err ? console.log(err) : console.log('Team HTML started!')
     );
+    console.log(team);
 
-    for (let i=0; i < teamData.length; i++) {
+    for (let i=0; i < team.length; i++) {
         
-        
-        const employee = teamData[i];
+        const employee = team[i];
         const empRole = employee.getRole();
 
-
-
-        
+        //append html cards for each employee
+        if (empRole === 'Manager') {
+            fs.appendFile('./output/team.html', renderManager(employee), (err) => 
+                err ? console.log(err) : console.log('Manager card added!')
+            );
+        } 
+        if (empRole === 'Engineer') {
+            fs.appendFile('./output/team.html', renderEngineer(employee), (err) => 
+                err ? console.log(err) : console.log('Engineer card added!')
+            );
+        } 
+        if (empRole === 'Intern') {
+            fs.appendFile('./output/team.html', renderIntern(employee), (err) => 
+                err ? console.log(err) : console.log('Intern card added!')
+            );
+        }
     }
+    completeHtml();
+}
 
+//function to complete the html started in generateTeam()
+function completeHtml() {
+    const htmlEnd = `
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    </body>
+</html>
+`;
     //append and complete index.html after employee cards have been appended
     fs.appendFile('./output/team.html', htmlEnd, (err) => 
         err ? console.log(err) : console.log('Team HTML completed!')
     );
-    
 }
 
 

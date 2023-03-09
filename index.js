@@ -134,10 +134,9 @@ const additionalEmployee = () => {
                 generateTeam(team);
                 return
             }
-        }); 
+        })
 };
 
-//function to write to html
 
 
 //function to initialize app
