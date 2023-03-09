@@ -131,6 +131,7 @@ const additionalEmployee = () => {
                 askEmployeeQ();
             } else {
                 console.log('finished adding employees!');
+                generateTeam(team);
                 return
             }
         }); 
