@@ -71,7 +71,8 @@ const renderManager = (employee) => {
     return `
             <div class="card text-center p-3 m-3 bg-dark text-light">
                 <h2>Manager</h2>
-                <p>ID: ${employee.name}</p>
+                <p>Name: ${employee.name}</p>
+                <p>ID: ${employee.id}<p>
                 <p>Email: <a href="mailto:${employee.email}">${employee.email}</a></p>
                 <p>Office Number: ${employee.officeNumber}</p>
             </div>
@@ -83,7 +84,8 @@ const renderEngineer = (employee) => {
     return `
             <div class="card text-center p-3 m-3 bg-secondary text-light">
                 <h2>Engineer</h2>
-                <p>ID: ${employee.name}</p>
+                <p>Name: ${employee.name}</p>
+                <p>ID: ${employee.id}<p>
                 <p>Email: <a href="mailto:${employee.email}">${employee.email}</a></p>
                 <p>Github: <a href="https://github.com/${employee.github}">${employee.github}</a></p>
             </div>
@@ -93,10 +95,11 @@ const renderEngineer = (employee) => {
 //render intern card
 const renderIntern = (employee) => {
     return `
-            <div class="card text-center p-3 m-3">
+            <div class="card text-center p-3 m-3 bg-light">
                 <h2>Intern</h2>
-                <p>ID: ${employee.name}</p>
-                <p>Email: ${employee.email}</p>
+                <p>Name: ${employee.name}</p>
+                <p>ID: ${employee.id}<p>
+                <p>Email: <a href="mailto:${employee.email}">${employee.email}</a></p>
                 <p>School: ${employee.school}</p>
             </div>
     `

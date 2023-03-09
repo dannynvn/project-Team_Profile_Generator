@@ -106,7 +106,6 @@ const askEmployeeQ = () => {
 
                 team.push(engineer);
                 console.log(engineer);
-                console.log(team);
                 additionalEmployee();
             } else if (employeeResponse.empType === 'Intern') {
                 const {employeeName:name, employeeId:id, employeeEmail:email, internSchool:school} = employeeResponse;
@@ -114,10 +113,8 @@ const askEmployeeQ = () => {
 
                 team.push(intern);
                 console.log(intern);
-                console.log(team);
                 additionalEmployee();
             } else {
-                console.log(team);
                 additionalEmployee();
             }
         });
