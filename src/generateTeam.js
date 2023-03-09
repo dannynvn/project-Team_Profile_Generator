@@ -1,37 +1,37 @@
 const fs = require('fs');
 
 //render manager card
-const renderManager = (manager) => {
+const renderManager = (employee) => {
     return `
             <div class="card text-center p-3 m-3 bg-dark text-light">
                 <h2>Manager</h2>
-                <p>ID: ${manager.name}</p>
-                <p>Email: ${manager.email}</p>
-                <p>Office Number: ${manager.officeNumber}</p>
+                <p>ID: ${employee.name}</p>
+                <p>Email: <a href="mailto:${employee.email}">${employee.email}</a></p>
+                <p>Office Number: ${employee.officeNumber}</p>
             </div>
     `
 }
 
 //render engineer card
-const renderEngineer = (engineer) => {
+const renderEngineer = (employee) => {
     return `
             <div class="card text-center p-3 m-3 bg-secondary text-light">
                 <h2>Engineer</h2>
-                <p>ID: ${engineer.name}</p>
-                <p>Email: ${engineer.email}</p>
-                <p>GitHub: ${engineer.github}</p>
+                <p>ID: ${employee.name}</p>
+                <p>Email: <a href="mailto:${employee.email}">${employee.email}</a></p>
+                <p>Github: <a href="https://github.com/${employee.github}">${employee.github}</a></p>
             </div>
     `
 }
 
 //render intern card
-const renderIntern = (intern) => {
+const renderIntern = (employee) => {
     return `
             <div class="card text-center p-3 m-3">
                 <h2>Intern</h2>
-                <p>ID: ${intern.name}</p>
-                <p>Email: ${intern.email}</p>
-                <p>School: ${intern.school}</p>
+                <p>ID: ${employee.name}</p>
+                <p>Email: ${employee.email}</p>
+                <p>School: ${employee.school}</p>
             </div>
     `
 }
@@ -46,11 +46,11 @@ function generateTeam(team) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <title>Team Profile</title>
+    <title>Team Profiles</title>
 </head>
     <body>
         <header class="bg-light fs-1 text-center m-5 p-4"> 
-            Team Profile
+            Team Profiles
         </header>
         <div class="container">
 `;
